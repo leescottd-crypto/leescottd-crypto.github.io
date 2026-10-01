@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-30T21:00:37.492300+00:00",
+  "generated_at": "2026-10-01T10:00:39.666570+00:00",
   "history_start": "2014-01-01",
   "pillars": [
     {
@@ -2499,14 +2499,14 @@
     "dxy": {
       "key": "dxy",
       "label": "U.S. Dollar Index (DXY)",
-      "value": 101.467003,
-      "date": "2026-09-30",
+      "value": 101.859001,
+      "date": "2026-10-01",
       "unit": "index",
-      "change_3m": 0.11,
-      "change_12m": 3.32,
-      "change_3m_pct": 0.11,
-      "change_12m_pct": 3.38,
-      "percentile_since_2015": 75.0,
+      "change_3m": 0.47,
+      "change_12m": 4.15,
+      "change_3m_pct": 0.46,
+      "change_12m_pct": 4.25,
+      "percentile_since_2015": 76.8,
       "cadence": "daily",
       "source": "ICE U.S. Dollar Index via Yahoo Finance",
       "source_url": "https://finance.yahoo.com/quote/DX-Y.NYB/",
@@ -3075,7 +3075,11 @@
         },
         {
           "date": "2026-09-30",
-          "value": 101.467003
+          "value": 101.449997
+        },
+        {
+          "date": "2026-10-01",
+          "value": 101.859001
         }
       ]
     },
@@ -4976,7 +4980,7 @@
       "key": "credit_spread",
       "label": "Baa - 10Y Credit Spread",
       "value": 1.46,
-      "date": "2026-09-28",
+      "date": "2026-09-29",
       "unit": "% points",
       "change_3m": -0.1,
       "change_12m": -0.19,
@@ -5598,7 +5602,7 @@
           "value": 1.59
         },
         {
-          "date": "2026-09-28",
+          "date": "2026-09-29",
           "value": 1.46
         }
       ]
