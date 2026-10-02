@@ -1,0 +1,69 @@
+{
+  "date": "2026-10-02",
+  "target": "http://127.0.0.1:5182/dashboard/",
+  "themes": [
+    "dark",
+    "light"
+  ],
+  "responsive": [
+    {
+      "width": 1440,
+      "documentScrollWidth": 1429,
+      "themes": [
+        "dark",
+        "light"
+      ],
+      "pageOverflow": false
+    },
+    {
+      "width": 1024,
+      "documentScrollWidth": 1013,
+      "themes": [
+        "dark",
+        "light"
+      ],
+      "pageOverflow": false
+    },
+    {
+      "width": 390,
+      "documentScrollWidth": 379,
+      "themes": [
+        "dark",
+        "light"
+      ],
+      "pageOverflow": false
+    }
+  ],
+  "assetsOpened": [
+    "Bitcoin",
+    "Ethereum",
+    "Solana",
+    "SUI",
+    "Hyperliquid",
+    "Gold",
+    "Silver",
+    "MAGS",
+    "MSTR",
+    "S&P 500",
+    "NASDAQ"
+  ],
+  "chartTabsOpened": [
+    "Log channel",
+    "Moving averages",
+    "Rainbow",
+    "Elliott Wave"
+  ],
+  "macroTabsOpened": [
+    "Overview",
+    "Liquidity",
+    "Fiscal",
+    "Supply",
+    "Cycle",
+    "Policy",
+    "Reserves"
+  ],
+  "themePersistence": true,
+  "rangePreservedOnThemeChange": "1Y",
+  "consoleErrorsOrWarnings": [],
+  "export": "Handler preserved; completion not confirmed"
+}

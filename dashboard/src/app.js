@@ -1,5 +1,6 @@
+import { chartTheme, themeToken } from './theme.js';
 import { mountMarketSizes } from '/src/market-sizes.js?v=1';
-import { mountReserveHoldings } from '/src/reserve-holdings.js';
+import { mountReserveHoldings } from './reserve-holdings.js';
 import { mountPolicyAdoption } from '/src/policy-adoption.js?v=arma-progress-v1';
 const moneyWhole = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 });
 const moneyCents = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 2, maximumFractionDigits: 2 });
@@ -7,6 +8,8 @@ const moneySubDollar = new Intl.NumberFormat('en-US', { style: 'currency', curre
 const num = new Intl.NumberFormat('en-US', { maximumFractionDigits: 2 });
 let logChart;
 let movingAverageChart;
+let logPriceSeries;
+let movingPriceSeries;
 let dashboardIndex;
 let activeAssetId;
 let activeData;
@@ -986,14 +989,15 @@ function renderLogChart(data) {
   const compactChart = window.matchMedia('(max-width: 760px)').matches;
   logChart = LightweightCharts.createChart(chartEl, {
     height: window.innerWidth <= 760 ? 390 : 470,
-    layout: { background: { color: '#08191d' }, textColor: '#e6dac6' },
-    grid: { vertLines: { color: 'rgba(216, 205, 187, 0.10)' }, horzLines: { color: 'rgba(216, 205, 187, 0.10)' } },
-    rightPriceScale: { mode: LightweightCharts.PriceScaleMode.Logarithmic, visible: !compactChart, borderColor: 'rgba(148, 163, 184, 0.3)' },
-    timeScale: { borderColor: 'rgba(148, 163, 184, 0.3)', minBarSpacing: 0.05 },
+    ...chartTheme(),
+
+    rightPriceScale: { mode: LightweightCharts.PriceScaleMode.Logarithmic, visible: !compactChart, borderColor: themeToken('border') },
+    timeScale: { borderColor: themeToken('border'), minBarSpacing: 0.05 },
     crosshair: { mode: LightweightCharts.CrosshairMode.Normal },
   });
-  const price = logChart.addLineSeries({ color: '#f6f5f2', lineWidth: 2, title: compactChart ? '' : `${data.asset.symbol} price`, lastValueVisible: !compactChart, priceLineVisible: !compactChart });
+  const price = logChart.addLineSeries({ color: themeToken('text'), lineWidth: 2, title: compactChart ? '' : `${data.asset.symbol} price`, lastValueVisible: !compactChart, priceLineVisible: !compactChart });
   const secondaryLabelOptions = { lastValueVisible: !compactChart, priceLineVisible: !compactChart };
+  logPriceSeries = price;
   const trend = logChart.addLineSeries({ color: '#a27b5b', lineWidth: 2, title: compactChart ? '' : 'Trend', ...secondaryLabelOptions });
   const minus15 = logChart.addLineSeries({ color: '#8fa184', lineWidth: 2, title: compactChart ? '' : '-1.5σ accumulation', ...secondaryLabelOptions });
   const minus2 = logChart.addLineSeries({ color: '#789294', lineWidth: 1, lineStyle: LightweightCharts.LineStyle.Dashed, title: compactChart ? '' : '-2σ deep value', ...secondaryLabelOptions });
@@ -1022,14 +1026,15 @@ function renderMovingAverageChart(data) {
   const compactChart = window.matchMedia('(max-width: 760px)').matches;
   movingAverageChart = LightweightCharts.createChart(chartEl, {
     height: window.innerWidth <= 760 ? 390 : 470,
-    layout: { background: { color: '#08191d' }, textColor: '#e6dac6' },
-    grid: { vertLines: { color: 'rgba(216, 205, 187, 0.10)' }, horzLines: { color: 'rgba(216, 205, 187, 0.10)' } },
-    rightPriceScale: { mode: LightweightCharts.PriceScaleMode.Logarithmic, visible: !compactChart, borderColor: 'rgba(148, 163, 184, 0.3)' },
-    timeScale: { borderColor: 'rgba(148, 163, 184, 0.3)', minBarSpacing: 0.05 },
+    ...chartTheme(),
+
+    rightPriceScale: { mode: LightweightCharts.PriceScaleMode.Logarithmic, visible: !compactChart, borderColor: themeToken('border') },
+    timeScale: { borderColor: themeToken('border'), minBarSpacing: 0.05 },
     crosshair: { mode: LightweightCharts.CrosshairMode.Normal },
   });
   const compactSeriesOptions = { lastValueVisible: !compactChart, priceLineVisible: !compactChart };
-  const price = movingAverageChart.addLineSeries({ color: '#f6f5f2', lineWidth: 3, title: compactChart ? '' : `${data.asset.symbol} price`, ...compactSeriesOptions });
+  const price = movingAverageChart.addLineSeries({ color: themeToken('text'), lineWidth: 3, title: compactChart ? '' : `${data.asset.symbol} price`, ...compactSeriesOptions });
+  movingPriceSeries = price;
   const ma50 = movingAverageChart.addLineSeries({ color: '#8fb8b6', lineWidth: 2, title: compactChart ? '' : '50D MA', ...compactSeriesOptions });
   const ma100 = movingAverageChart.addLineSeries({ color: '#d1a16d', lineWidth: 2, title: compactChart ? '' : '100D MA', ...compactSeriesOptions });
   const ma200 = movingAverageChart.addLineSeries({ color: '#c18aa6', lineWidth: 2, title: compactChart ? '' : '200D MA', ...compactSeriesOptions });
@@ -1383,3 +1388,5 @@ async function main() {
 main().catch((err) => {
   document.body.innerHTML = `<main class="panel error"><h1>Dashboard failed to load</h1><pre>${escapeHtml(err.stack || err.message)}</pre></main>`;
 });
+
+window.addEventListener('dashboard-theme-change',()=>{for(const chart of [logChart,movingAverageChart])chart?.applyOptions(chartTheme());for(const series of [logPriceSeries,movingPriceSeries])series?.applyOptions({color:themeToken('text')});});

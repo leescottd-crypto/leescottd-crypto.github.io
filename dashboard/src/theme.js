@@ -1,0 +1,5 @@
+export function themeToken(name) { return getComputedStyle(document.documentElement).getPropertyValue('--'+name).trim(); }
+export function chartTheme() { return {layout:{background:{color:themeToken('canvas')},textColor:themeToken('secondary'),fontFamily:'Inter, system-ui, sans-serif',fontSize:12},grid:{vertLines:{color:themeToken('border-soft')},horzLines:{color:themeToken('border-soft')}},rightPriceScale:{borderColor:themeToken('border')},timeScale:{borderColor:themeToken('border')}}; }
+const button=document.querySelector('#themeToggle');
+function sync(){const dark=document.documentElement.dataset.theme!=='light';button.textContent=dark?'Light theme':'Dark theme';button.setAttribute('aria-label','Switch to '+(dark?'light':'dark')+' theme');document.querySelector('meta[name="theme-color"]').content=themeToken('canvas');}
+sync();button.addEventListener('click',()=>{const theme=document.documentElement.dataset.theme==='light'?'dark':'light';document.documentElement.dataset.theme=theme;try{localStorage.setItem('multi-asset-theme',theme)}catch{}sync();window.dispatchEvent(new Event('dashboard-theme-change'));});

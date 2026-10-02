@@ -3,12 +3,14 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#08191d" />
-    <title>Multi-Asset Cycle Dashboard — A Preview</title>
+    <meta name="theme-color" content="#17181b" />
+    <script>try{document.documentElement.dataset.theme=localStorage.getItem("multi-asset-theme")==="light"?"light":"dark"}catch{document.documentElement.dataset.theme="dark"}</script>
+    <title>Multi-Asset Cycle Dashboard</title>
     <link rel="icon" href="data:," />
     <link rel="stylesheet" href="./theme.css?v=a-system-v27-fiscal-flow" />
     <link rel="stylesheet" href="/src/reserve-holdings.css" />
     <link rel="stylesheet" href="/src/policy-adoption.css?v=arma-progress-v1" />
+    <link rel="stylesheet" href="./linear.css?v=20261002" />
     <script src="https://unpkg.com/lightweight-charts@4.2.0/dist/lightweight-charts.standalone.production.js"></script>
   </head>
   <body>
@@ -35,7 +37,7 @@
         <a href="#researchNotes">Alerts</a>
       </nav>
       <button id="navMenu" class="nav-menu" type="button" aria-expanded="false" aria-controls="primaryNavigation">Menu</button>
-      <div class="masthead-note"><strong id="headerAsOf">Research tool</strong><button id="settingsButton" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9 7 7M17 17l2.1 2.1M19.1 4.9 17 7M7 17l-2.1 2.1"/></svg>Settings</button><button id="exportButton" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5M4 20h16"/></svg>Export</button></div>
+      <div class="masthead-note"><strong id="headerAsOf">Research tool</strong><button id="themeToggle" class="theme-toggle" type="button" aria-label="Switch to light theme">Light theme</button><button id="settingsButton" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9 7 7M17 17l2.1 2.1M19.1 4.9 17 7M7 17l-2.1 2.1"/></svg>Settings</button><button id="exportButton" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5M4 20h16"/></svg>Export</button></div>
     </header>
 
     <main id="top">
@@ -267,6 +269,6 @@
         <article><h2>Data &amp; notes</h2><div id="manual"></div></article>
       </section>
     </main>
-    <script type="module" src="./src/app.js?v=ethereum-v1"></script>
+    <script type="module" src="./src/app.js?v=linear-20261002?v=ethereum-v1"></script>
   </body>
 </html>
