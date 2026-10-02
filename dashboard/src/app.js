@@ -403,15 +403,15 @@ function macroReferenceChart(metric) {
     .filter((row) => Number.isFinite(row.value) && row.date >= '2015-01-01');
   if (clean.length < 2) return '<div class="macro-chart-empty">Historical series unavailable</div>';
   const width = 360;
-  const height = 158;
-  const pad = { top: 10, right: 8, bottom: 26, left: 40 };
+  const height = 200;
+  const pad = { top: 10, right: 8, bottom: 32, left: 52 };
   const axis = referenceAxis(metric, clean.map((row) => row.value));
   const firstTime = Date.parse(`${clean[0].date}T00:00:00Z`);
   const lastTime = Date.parse(`${clean.at(-1).date}T00:00:00Z`);
   const x = (date) => pad.left + ((Date.parse(`${date}T00:00:00Z`) - firstTime) / Math.max(lastTime - firstTime, 1)) * (width - pad.left - pad.right);
   const y = (value) => pad.top + (1 - (value - axis.min) / Math.max(axis.max - axis.min, 1e-9)) * (height - pad.top - pad.bottom);
   const path = clean.map((row, index) => `${index ? 'L' : 'M'}${x(row.date).toFixed(1)},${y(row.value).toFixed(1)}`).join(' ');
-  const yearTicks = [2015, 2017, 2019, 2021, 2023, 2025].filter((year) => year >= Number(clean[0].date.slice(0, 4)) && year <= Number(clean.at(-1).date.slice(0, 4)));
+  const yearTicks = [2015, 2020, 2025].filter((year) => year >= Number(clean[0].date.slice(0, 4)) && year <= Number(clean.at(-1).date.slice(0, 4)));
   return `<svg class="macro-reference-chart" viewBox="0 0 ${width} ${height}" role="img" aria-label="${escapeHtml(metric.label)}, ten-year history with labelled axes">
     <line class="macro-axis-line" x1="${pad.left}" x2="${pad.left}" y1="${pad.top}" y2="${height - pad.bottom}" />
     <line class="macro-axis-line" x1="${pad.left}" x2="${width - pad.right}" y1="${height - pad.bottom}" y2="${height - pad.bottom}" />
